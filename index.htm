@@ -3,7 +3,7 @@
 function file64(file, onresult, oncomplete){
   with(new FileReader){
     onload = function(){ onresult(btoa(String.fromCharCode.apply(null, new Uint8Array(result)))) };
-    onloadend = function(){ oncomplete && oncomplete(error) };
+    onloadend = oncomplete && function(){ oncomplete(error) };
     readAsArrayBuffer(file);
   }
 }
