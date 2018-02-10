@@ -1,9 +1,9 @@
 <textarea id="txt" style="width: 100%; height: 100%;">Drop a small file here and you get your base64!</textarea>
 <script>
-function file64(file, onresult, oncomplete){
+function file64(file, ondata, onfail){
   with(new FileReader){
-    onload = function(){ onresult(btoa(String.fromCharCode.apply(null, new Uint8Array(result)))) };
-    onloadend = oncomplete && function(){ oncomplete(error) };
+    onload = function(){ ondata(btoa(String.fromCharCode.apply(null, new Uint8Array(result)))) };
+    onloadend = onfail && function(){ error && onfail(error) };
     readAsArrayBuffer(file);
   }
 }
