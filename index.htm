@@ -18,7 +18,7 @@ with(document.body){
   });
   addEventListener("drop", function(vt){
     vt.preventDefault();
-    file64(vt.dataTransfer.files[0], function($){ txt.value = $ }, function($){ if($) txt.value = $ });
+    file64(vt.dataTransfer.files[0], function($){ txt.value = $ }, function($){ txt.value = $ });
   });
 }
 </script>
