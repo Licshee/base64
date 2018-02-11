@@ -1,5 +1,9 @@
 <textarea id="txt" style="width: 100%; height: 100%;">Drop a small file here and enjoy your base64!</textarea>
 <script>
+function stop(vt){
+  vt.preventDefault();
+  vt.stopPropagation();
+}
 function file64(file, ondata, onfail){
   with(new FileReader){
     onload = function(){ ondata(btoa(String.fromCharCode.apply(null, new Uint8Array(result)))) };
@@ -9,7 +13,7 @@ function file64(file, ondata, onfail){
 }
 with(document.body){
   addEventListener("dragover", function(vt){
-    vt.preventDefault();
+    stop(vt);
     var dt = vt.dataTransfer;
     if(!dt.items) return; // fix for IE11
     with(dt){
@@ -17,8 +21,11 @@ with(document.body){
     }
   });
   addEventListener("drop", function(vt){
-    vt.preventDefault();
+    stop(vt);
     file64(vt.dataTransfer.files[0], function($){ txt.value = $ }, function($){ txt.value = $ });
+  });
+  addEventListener("dblclick", function($){
+    confirm("Wanna download a copy of decoded data?") && open("data:application/octet-stream;base64," + txt.value, "_self");
   });
 }
 </script>
